@@ -1,0 +1,43 @@
+body{
+	line-height: 1;
+	margin: 0;
+	background-color: whitesmoke;
+}
+
+.container.signup-container {
+    margin-top: 8%;
+}
+
+form.account-form {
+    max-width: 80%;
+    margin: auto;
+}
+
+input.account-btn {
+    color: #ffffff;
+    background-color: #d64829;
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.box {
+    margin-top: 1.2rem;
+    padding: 40px 0px 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+}
+
+.content-section {
+    display: flex;
+    padding: 10px 5rem;
+}
+
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+.account-heading {
+    font-size: 2.5rem;
+}

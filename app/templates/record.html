@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block CSS %}
+<link rel="stylesheet" type='text/css' href="{{ url_for('static', filename='css/record.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid starting">
+  <div class="row">
+    <div class="col-sm-12 col-md-2"></div>
+    <div class="col-sm-8 col-md-8">
+      <div class="box">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, msg in messages %}
+        <div class="alert alert-{{ category}}">
+          <p>{{msg}}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="content-section">
+          <img class="rounded-circle account-img"
+            src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}">
+          <div class="media-body">
+            <h2 class="account-heading"> {{ current_user.username }} </h2>
+            <p class="text-secondary"> {{ current_user.email }}</p>
+          </div>
+        </div>
+
+        <div class="container-fluid">
+          <legend class="border-bottom mb-4">RECORD</legend>
+          <div class="plan-display">
+            <table>
+              <thead>
+                <tr>
+                  <th class="pr-3">Full Name</th>
+                  <th class="pr-3">Prefix</th>
+                  <th class="pr-3">Name of Survey</th>
+                  <th class="pr-3">Plan Number</th>
+                  <th class="pr-3">Location of Survey</th>
+                  <th class="pr-3">Purpose of Survey</th>
+                  <th class="pr-3">Date of Survey</th>
+                  <th class="pr-3">Area of Land</th>
+                  <th class="pr-3">Lodgement Fee</th>
+                  <th class="pr-3">View</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for plan in plans %}
+                <tr>
+                  <td><small>{{ plan.surveyor.full_name }}</small></td>
+                  <td><small>{{ plan.surveyor.prefix }}</small></td>
+                  <td><small>{{ plan.name_of_survey }}</small></td>
+                  <td><small>{{ plan.plan_no }}</small></td>
+                  <td><small>{{ plan.location }}</small></td>
+                  <td><small>{{ plan.purpose_of_survey }}</small></td>
+                  <td><small>{{ plan.date_of_survey.strftime('%d-%m-%Y') }}</small></td>
+                  <td><small>{{ plan.area_of_land }}</small></td>
+                  <td><small>{{ plan.lodegement_fee }}</small></td>
+                  <td><small><a href="{{ url_for('record_view', plan_id=plan.id) }}"> View Plan </a></small></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="col-sm-12 col-md-2"></div>
+</div>
+{% endblock content %}

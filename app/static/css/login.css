@@ -1,0 +1,52 @@
+body{
+	background-color: #e6f2ff;
+}
+
+.container.signin-container {
+    margin-top: 8%;
+}
+
+.card.signin-card {
+    background-color: #f4f4f4;
+    margin: 1.2rem;
+    padding: 40px 0px 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+}
+
+form.signin-form {
+    max-width: 80%;
+    margin: auto;
+}
+
+.login-heading {
+    display: block;
+    text-align: center;
+}
+
+img.top-img {
+    width: 20%;
+}
+
+label.login-details {
+    margin-bottom: .5rem;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    color: chocolate;
+}
+
+input.login-btn {
+    color: #ffffff;
+    background-color: #d64829;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+small.bottom-point {
+    display: block;
+    text-align: center;
+    font-size: 15px;
+}
+
+.bottom-point a {
+    text-decoration: none;
+}

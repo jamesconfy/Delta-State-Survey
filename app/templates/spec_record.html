@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block CSS %}
+<link rel="stylesheet" type='text/css' href="{{ url_for('static', filename='css/spec_record.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid starting">
+    <div class="row">
+        <div class="col-sm-12 col-md-2"></div>
+        <div class="col-sm-8 col-md-8">
+            <div class="box">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, msg in messages %}
+                <div class="alert alert-{{ category}}">
+                    <p>{{msg}}</p>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <div class="content-section">
+                    <img class="rounded-circle account-img"
+                        src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}">
+                    <div class="media-body">
+                        <h2 class="account-heading"> {{ plan.surveyor.username }} </h2>
+                        <p class="text-secondary"> {{ plan.surveyor.email }}</p>
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <legend class="border-bottom mb-4">RECORD</legend>
+                    <div class="plan-display">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-5">
+                                <h6>Name of Surveyor: {{ plan.surveyor.full_name }}</h6>
+                                <h6>Surveyor Prefix: {{ plan.surveyor.prefix }}</h6>
+                                <h6>Name of Survey: {{ plan.name_of_survey }}</h6>
+                                <h6>Plan No: {{ plan.plan_no }}</h6>
+                                <h6>Location of Survey: {{ plan.location }}</h6>
+                                <h6>Purpose of Survey: {{ plan.purpose_of_survey }}</h6>
+                                <h6>Date of Survey: {{ plan.date_of_survey.strftime('%d-%m-%Y') }}</h6>
+                                <h6>Area of Survey: {{ plan.area_of_land }}</h6>
+                                <h6>Lodgement Fee: {{ plan.lodegement_fee }}</h6>
+                            </div>
+
+                            <div class="col-sm-12 col-md-7">
+                                <img class="plan-img"
+                                    src=" {{ url_for('static', filename='plan_image/' + plan.plan_file) }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 anchor-tag">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary btn-danger btn-sm m-1" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal">Delete Record</button>
+                        <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('modify', plan_id=plan.id ) }}">Modify
+                            Record</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-2"></div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Record?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to delete this lodgement?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action=" {{ url_for('delete', plan_id=plan.id) }}, method='POST'">
+                    <input class="btn btn-danger" type="button" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,43 @@
+body{
+	background-color: #2f4d6e;
+}
+
+.container.signup-container {
+    margin-top: 8%;
+}
+
+.card.signup-card {
+    background-color: #f4f4f4;
+    padding: 40px 0px 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+}
+
+form.signup-form {
+    max-width: 80%;
+    margin: auto;
+}
+
+label.signup-details {
+    display: block;
+    text-align: center;
+    margin: auto;
+    font-weight: bolder;
+    font-display: block;
+    font-size: large;
+    font-size: 30px;
+    color: chocolate;
+}
+
+input.signup-btn {
+    color: #ffffff;
+    background-color: #d64829;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+small.bottom-point {
+    display: block;
+    text-align: center;
+    line-height: 3px;
+    font-size: 15px;
+}

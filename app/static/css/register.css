@@ -1,0 +1,51 @@
+body{
+	background-color: #e6f2ff;
+}
+
+.container.signup-container {
+    margin-top: 8%;
+}
+
+.card.signup-card {
+    background-color: #f4f4f4;
+    margin: 1.2rem;
+    padding: 40px 0px 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+}
+
+form.signup-form {
+    max-width: 80%;
+    margin: auto;
+}
+
+label.signup-details {
+    display: block;
+    margin-bottom: .5rem;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 1.5rem;
+    color: chocolate;
+}
+
+input.signup-btn {
+    color: #ffffff;
+    background-color: #d64829;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+small.bottom-point {
+    display: block;
+    text-align: center;
+    line-height: 3px;
+    font-size: 15px;
+}
+
+.bottom-point a {
+    text-decoration: none;
+    text-align: center;
+}
+
+p.fmessage {
+    color: red;
+}

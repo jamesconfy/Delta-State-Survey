@@ -1,0 +1,14 @@
+/* Defaults */
+body{
+	line-height: 1;
+	margin: 0;
+	background-color: whitesmoke;
+}
+
+div.starting {
+	margin-top: 15px;
+}
+
+* {
+	box-sizing: border-box;
+}

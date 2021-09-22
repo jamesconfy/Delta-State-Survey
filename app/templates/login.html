@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block CSS %}
+<link rel="stylesheet" type='text/css' href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container signin-container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-sm-12 col-md-8">
+            <div class="card signin-card">
+                <div class="card-block">
+                    <div class="login-heading">
+                        <img src="{{ url_for('static', filename='assests/devslopes1.png') }}" class="img-fluid top-img">
+                        <label class="login-details">Login</label>
+                    </div>
+                    <form class="signin-form" action="http://localhost:5000/login" method='POST'>
+                        {{ form.hidden_tag() }}
+                        <fieldset class="form-group">
+                            <div class="form-group">
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                {% for category, msg in messages %}
+                                <div class="alert alert-{{ category}}">
+                                    <p>{{msg}}</p>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                                {% endwith %}
+                                {{ form.username.label(class="form-control-label") }}
+                                {{ form.username(class="form-control", placeholder="Username") }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.password.label(class="form-control-label") }}
+                                {{ form.password(class="form-control", placeholder="Password") }}
+                            </div>
+                            <div class="form-group form-check">
+                                {{ form.remember(class="form-check-input") }}
+                                {{ form.remember.label(class="form-check-label") }}
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            {{ form.submit(class="btn login-btn") }}
+                        </div>
+                    </form>
+                    <small class="bottom-point">Don't have an account? <a href="/register">Register</a></small>
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock content %}
