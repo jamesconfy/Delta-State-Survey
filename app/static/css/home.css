@@ -12,3 +12,8 @@ div.starting {
 * {
 	box-sizing: border-box;
 }
+
+div.links {
+	display: block;
+	margin: 0 auto;
+}

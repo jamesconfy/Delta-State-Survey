@@ -3,6 +3,7 @@ import secrets
 from datetime import date
 from PIL import Image
 from flask_login.utils import login_required, logout_user
+from sqlalchemy import desc
 from app.models import db
 from flask import render_template, flash, redirect, url_for, request, abort
 from app import app, bcrypt
@@ -13,7 +14,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route("/")
 @app.route("/home")
 def home():
-    plans = Lodgement.query.all()
+    page = request.args.get('page', 1, type=int)
+    plans = Lodgement.query.order_by(Lodgement.date_of_survey.desc()).paginate(per_page=3, page=page)
     return render_template('home.html', title='Home', plans=plans)
 
 @app.route("/login", methods=['POST', 'GET'])
@@ -78,7 +80,6 @@ def save_plan_image(form_picture):
 
     return picture_fn
 
-
 @app.route("/account", methods=['POST', 'GET'])
 @login_required
 def account():
@@ -135,7 +136,7 @@ def plan_lodgement():
 @app.route("/record")
 @login_required
 def record():
-    plans = Lodgement.query.filter_by(user_id=current_user.id)
+    plans = Lodgement.query.order_by(Lodgement.date_of_survey.desc()).filter_by(user_id=current_user.id)
     return render_template('record.html', title='Record', plans=plans)
 
 @app.route("/record/<int:plan_id>")
@@ -195,6 +196,7 @@ def delete(plan_id):
 
     db.session.delete(plan)
     db.session.commit()
+
     flash('Your Lodgement have been deleted successfully', 'danger')
     return redirect(url_for('record'))
 

@@ -1,6 +1,9 @@
+#imports............
 from app import app
 from app.models import db
 
+#run code................
 if __name__ == '__main__':
+    #create database....................
     db.create_all()
     app.run(debug=True)

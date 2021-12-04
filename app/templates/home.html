@@ -1,11 +1,15 @@
+<!-- extends layout html page-->
 {% extends "layout.html" %}
 
+<!-- extends css link -->
 {% block CSS %}
 <link rel="stylesheet" type='text/css' href="{{ url_for('static', filename='css/home.css') }}">
 {% endblock %}
 
+<!--block content from html page -->
 {% block content %}
 
+<!-- flashed message from website -->
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
 {% for category, msg in messages %}
@@ -15,12 +19,18 @@
 {% endfor %}
 {% endif %}
 {% endwith %}
+
+<!-- div containing the template -->
 <div class="container-fluid starting">
     <div class="row">
         <div class="col-sm-12 col-md-2"></div>
         <div class="col-sm-12 col-md-8">
+
+            <!-- div containing pge header -->
             <div class="container-fluid">
                 <legend class="border-bottom mb-4">Lodgement Data</legend>
+
+                <!-- div of table headers -->
                 <div class="plan-display">
                     <table>
                         <thead>
@@ -37,8 +47,9 @@
                             </tr>
                         </thead>
 
+                        <!-- div of table body -->
                         <tbody>
-                            {% for plan in plans %}
+                            {% for plan in plans.items %}
                             <tr>
                                 <td><small>{{ plan.surveyor.full_name }}</small></td>
                                 <td><small>{{ plan.surveyor.prefix }}</small></td>
@@ -53,6 +64,21 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    <div class="links">
+                        {% for page_num in plans.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2)
+                        %}
+                        {% if page_num %}
+                        {% if plans.page == page_num %}
+                        <a class="btn btn-info mt-4 mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+                        {% else %}
+                        <a class="btn btn-outline-info mt-4 mb-4" href="{{ url_for('home', page=page_num) }}">{{
+                            page_num }}</a>
+                        {% endif %}
+                        {% else %}
+                        ...
+                        {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
