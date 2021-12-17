@@ -16,7 +16,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 def home():
     page = request.args.get('page', 1, type=int)
     plans = Lodgement.query.order_by(Lodgement.date_of_survey.desc()).paginate(per_page=3, page=page)
-    return render_template('home.html', title='Home', plans=plans)
+    return render_template('home.html', title='Home', plans=plans, legend='Home')
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
@@ -29,7 +29,10 @@ def login():
             user = User.query.filter_by(username=form.username.data).first()
             if user and bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
-                return redirect(url_for('home'))
+
+                next_url = request.form.get('next')
+                if next_url:
+                    return redirect(next_url)
             else:
                 flash('Login Unsucessful, check username or password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -73,7 +76,7 @@ def save_plan_image(form_picture):
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/plan_image', picture_fn)
 
-    output_size = (500, 500)
+    output_size = (300, 300)
     img = Image.open(form_picture)
     img.thumbnail(output_size)
     img.save(picture_path)
@@ -133,21 +136,21 @@ def plan_lodgement():
     form.full_name.data = current_user.full_name
     return render_template('plan_lodgement.html', title='Plan Lodgement', form=form, legend='New Lodgement')
 
-@app.route("/record")
-@login_required
-def record():
-    plans = Lodgement.query.order_by(Lodgement.date_of_survey.desc()).filter_by(user_id=current_user.id)
-    return render_template('record.html', title='Record', plans=plans)
+@app.route("/record/<int:user_id>")
+def record(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    plans = Lodgement.query.order_by(Lodgement.date_of_survey.desc()).filter_by(user_id=user_id)
+    return render_template('record.html', title='Record', plans=plans, user=user, legend='Record')
 
-@app.route("/record/<int:plan_id>")
-def record_view(plan_id):
+@app.route("/record/<string:name>/<int:plan_id>")
+def record_view(name, plan_id):
     plan = Lodgement.query.get_or_404(plan_id)
-    return render_template('spec_record.html', plan=plan, title=plan.plan_no)
+    return render_template('spec_record.html', plan=plan, title=plan.plan_no, legend='Specific Records')
 
 
-@app.route("/record/<int:plan_id>/modify", methods=['GET', 'POST'])
+@app.route("/record/<string:name>/<int:plan_id>/modify", methods=['GET', 'POST'])
 @login_required
-def modify(plan_id):
+def modify(name, plan_id):
     plan = Lodgement.query.get_or_404(plan_id)
     if plan.surveyor != current_user:
         abort(404)

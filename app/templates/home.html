@@ -26,58 +26,66 @@
         <div class="col-sm-12 col-md-2"></div>
         <div class="col-sm-12 col-md-8">
 
-            <!-- div containing pge header -->
-            <div class="container-fluid">
-                <legend class="border-bottom mb-4">Lodgement Data</legend>
+            <!-- div containing page header -->
+            <div class="box">
+                <div class="content-section">
+                    <legend class="border-bottom mb-4">{{ legend }}</legend>
 
-                <!-- div of table headers -->
-                <div class="plan-display">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="pr-3">Full Name</th>
-                                <th class="pr-3">Prefix</th>
-                                <th class="pr-3">Name of Survey</th>
-                                <th class="pr-3">Plan Number</th>
-                                <th class="pr-3">Location of Survey</th>
-                                <th class="pr-3">Purpose of Survey</th>
-                                <th class="pr-3">Date of Survey</th>
-                                <th class="pr-3">Area of Land</th>
-                                <th class="pr-3">Lodgement Fee</th>
-                            </tr>
-                        </thead>
+                    <!-- div of table headers -->
+                    <div class="plan-display">
+                        {% for plan in plans.items %}
+                        <div class="content-section">
+                            <div class="content-header">
+                                <img class="rounded-circle img-header"
+                                    src="{{ url_for('static', filename='profile_pics/' + plan.surveyor.image_file) }}"
+                                    alt="Profile Picture">
+                                <div class="user">
+                                    <a href="{{ url_for('record', user_id=plan.surveyor.id) }}">
+                                        {{plan.surveyor.full_name }}({{ plan.surveyor.prefix}})
+                                    </a>
+                                    {{ plan.date_of_survey.strftime('%d-%m-%Y') }}
+                                </div>
+                            </div>
 
-                        <!-- div of table body -->
-                        <tbody>
-                            {% for plan in plans.items %}
-                            <tr>
-                                <td><small>{{ plan.surveyor.full_name }}</small></td>
-                                <td><small>{{ plan.surveyor.prefix }}</small></td>
-                                <td><small>{{ plan.name_of_survey }}</small></td>
-                                <td><small>{{ plan.plan_no }}</small></td>
-                                <td><small>{{ plan.location }}</small></td>
-                                <td><small>{{ plan.purpose_of_survey }}</small></td>
-                                <td><small>{{ plan.date_of_survey.strftime('%d-%m-%Y') }}</small></td>
-                                <td><small>{{ plan.area_of_land }}</small></td>
-                                <td><small>{{ plan.lodegement_fee }}</small></td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <div class="links">
-                        {% for page_num in plans.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2)
-                        %}
-                        {% if page_num %}
-                        {% if plans.page == page_num %}
-                        <a class="btn btn-info mt-4 mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
-                        {% else %}
-                        <a class="btn btn-outline-info mt-4 mb-4" href="{{ url_for('home', page=page_num) }}">{{
-                            page_num }}</a>
-                        {% endif %}
-                        {% else %}
-                        ...
-                        {% endif %}
+                            <div class="content-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-4">
+                                            <h6 class="pr-3">Plan Number: {{ plan.plan_no }}</h6>
+                                            <h6 class="pr-3">Location of Survey: {{ plan.location }}</h6>
+                                            <h6 class="pr-3">Purpose of Survey: {{ plan.purpose_of_survey }}</h6>
+                                            <h6 class="pr-3">Area of Land: {{ plan.area_of_land }}</h6>
+                                            <h6 class="pr-3">Lodgement Fee: {{ plan.lodegement_fee }}</h6>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-8">
+                                            <img class="plan-img"
+                                                src="{{ url_for('static', filename='plan_image/' + plan.plan_file) }}"
+                                                alt="Image of Plan">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                         {% endfor %}
+                        <div class="links">
+                            {% for page_num in plans.iter_pages(left_edge=1, right_edge=1, left_current=1,
+                            right_current=2)
+                            %}
+                            {% if page_num %}
+                            {% if plans.page == page_num %}
+                            <a class="btn btn-info mt-4 mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num
+                                }}</a>
+                            {% else %}
+                            <a class="btn btn-outline-info mt-4 mb-4" href="{{ url_for('home', page=page_num) }}">{{
+                                page_num }}</a>
+                            {% endif %}
+                            {% else %}
+                            ...
+                            {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>

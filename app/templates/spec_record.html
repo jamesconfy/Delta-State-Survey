@@ -21,7 +21,7 @@
                 {% endwith %}
                 <div class="content-section">
                     <img class="rounded-circle account-img"
-                        src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}">
+                        src="{{ url_for('static', filename='profile_pics/' + plan.surveyor.image_file) }}">
                     <div class="media-body">
                         <h2 class="account-heading"> {{ plan.surveyor.username }} </h2>
                         <p class="text-secondary"> {{ plan.surveyor.email }}</p>
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="container-fluid">
-                    <legend class="border-bottom mb-4">RECORD</legend>
+                    <legend class="border-bottom mb-4">{{ legend }}</legend>
                     <div class="plan-display">
                         <div class="row">
                             <div class="col-sm-12 col-md-5">
@@ -57,7 +57,7 @@
                             data-target="#exampleModal">
                             Delete Record
                         </button>
-                        <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('modify', plan_id=plan.id ) }}">Modify
+                        <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('modify', name=plan.surveyor.full_name, plan_id=plan.id ) }}">Modify
                             Record</a>
                     </div>
                 </div>
