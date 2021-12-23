@@ -1,0 +1,28 @@
+.foo {
+	background-color: brown;
+	color: blue;
+	display: block;
+	text-align: center;
+}
+
+ul {
+	list-style: none;
+	display: inline-flex;
+}
+
+a.icon {
+	color: blue;
+	text-decoration: none;
+	font-size: 30px;
+}
+
+a:hover {
+	color: green;
+}
+
+
+@media screen and (min-width: 480px) and (max-width: 720px) { 
+	ul {
+		display: inline-block;
+	}	
+}

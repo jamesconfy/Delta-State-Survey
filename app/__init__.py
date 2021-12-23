@@ -1,20 +1,32 @@
-#Importing Tokens........................
+# Importing Tokens........................
 from flask_bcrypt import Bcrypt
-from sqlalchemy.orm import backref
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_manager
+from config import Config
 
-#Initializing and Configuring App.......................
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '3d2c4c8de6820c78ea3c607161cc0904205c950ba52f37d0a6869c2dc5899db2'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sitess.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+# Initializing and Configuring App.......................
+db = SQLAlchemy()
+bcrypt = Bcrypt()
+login_manager = LoginManager()
+login_manager.login_view = 'users.login'
 login_manager.category = 'info'
 
 
-from app import routes
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
+
+    db.init_app(app)
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
+
+    from users.routes import users
+    from main.routes import main
+    from lodgement.routes import lodgement
+
+    app.register_blueprint(users)
+    app.register_blueprint(main)
+    app.register_blueprint(lodgement)
+
+    return app

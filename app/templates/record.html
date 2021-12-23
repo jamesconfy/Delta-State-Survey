@@ -59,7 +59,7 @@
                   <td><small>{{ plan.date_of_survey.strftime('%d-%m-%Y') }}</small></td>
                   <td><small>{{ plan.area_of_land }}</small></td>
                   <td><small>{{ plan.lodegement_fee }}</small></td>
-                  <td><small><a href="{{ url_for('record_view', name=plan.surveyor.full_name, plan_id=plan.id) }}"> View Plan </a></small></td>
+                  <td><small><a href="{{ url_for('lodgement.record_view', name=plan.surveyor.full_name, plan_id=plan.id) }}"> View Plan </a></small></td>
                 </tr>
                 {% endfor %}
               </tbody>

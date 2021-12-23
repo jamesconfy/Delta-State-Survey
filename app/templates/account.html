@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <form class="account-form" action="{{ url_for('account') }}" method="POST" enctype="multipart/form-data">
+        <form class="account-form" action="{{ url_for('users.account') }}" method="POST" enctype="multipart/form-data">
           {{ form.hidden_tag() }}
           <fieldset class="form-group">
             <legend class="border-bottom mb-4">Account Info</legend>

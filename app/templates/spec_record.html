@@ -57,7 +57,7 @@
                             data-target="#exampleModal">
                             Delete Record
                         </button>
-                        <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('modify', name=plan.surveyor.full_name, plan_id=plan.id ) }}">Modify
+                        <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('lodgement.modify', name=plan.surveyor.full_name, plan_id=plan.id ) }}">Modify
                             Record</a>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <form action="{{ url_for('delete', plan_id=plan.id) }}" method="POST">
+                <form action="{{ url_for('lodgement.delete', plan_id=plan.id) }}" method="POST">
                     <input class="btn btn-danger" type="submit" value="Delete">
                 </form>
             </div>

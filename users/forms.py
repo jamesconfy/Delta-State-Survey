@@ -1,11 +1,10 @@
-from typing import Optional
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileField
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, DateField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, Regexp, ValidationError
 from app.models import User
-from datetime import datetime, date
+
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
@@ -114,40 +113,3 @@ class UpdateAccountForm(FlaskForm):
             numb = User.query.filter_by(phone_no=phone_no.data).first()
             if numb:
                 raise ValidationError('This number is taken')
-
-
-class LodgementForm(FlaskForm):
-    name_of_survey = StringField('Name of Survey', validators=[DataRequired()])
-    full_name = StringField('Name of Surveyor')
-    prefix = StringField('Prefix')
-    plan_no = StringField('Plan Number', validators=[DataRequired()])
-    location = StringField('Location of Survey', validators=[DataRequired()])
-    purpose_of_survey = StringField('Purpose of Survey', validators=[DataRequired()])
-    date_of_survey = DateField('Date of Survey', validators=[DataRequired()])
-    area_of_land = StringField('Area of Land', validators=[DataRequired()])
-    lodegement_fee = StringField('Lodgement Fee', validators=[DataRequired()])
-    plan_file = FileField('Plan File', validators=[DataRequired(), FileAllowed(['jpg', 'png', 'jpeg'])])
-    submit = SubmitField('Submit')
-
-    def validate_date_of_survey(self, date_of_survey):
-        current_date = date.today()
-        if date_of_survey.data > current_date:
-            raise ValidationError('Date cannot be greater than current date')
-
-class ModificationForm(FlaskForm):
-    name_of_survey = StringField('Name of Survey', validators=[DataRequired()])
-    full_name = StringField('Name of Surveyor')
-    prefix = StringField('Prefix')
-    plan_no = StringField('Plan Number', validators=[DataRequired()])
-    location = StringField('Location of Survey', validators=[DataRequired()])
-    purpose_of_survey = StringField('Purpose of Survey', validators=[DataRequired()])
-    date_of_survey = DateField('Date of Survey', validators=[DataRequired()])
-    area_of_land = StringField('Area of Land', validators=[DataRequired()])
-    lodegement_fee = StringField('Lodgement Fee', validators=[DataRequired()])
-    plan_file = FileField('Plan File', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
-    submit = SubmitField('Submit')
-
-    def validate_date_of_survey(self, date_of_survey):
-        current_date = date.today()
-        if date_of_survey.data > current_date:
-            raise ValidationError('Date cannot be greater than current date')        
