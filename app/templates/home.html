@@ -33,6 +33,9 @@
 
                     <!-- div of table headers -->
                     <div class="plan-display">
+                        {% if not plans.items %}
+                            <h2>No Record</h2>
+                        {% else %}
                         {% for plan in plans.items %}
                         <div class="content-section">
                             <div class="content-header">
@@ -86,6 +89,7 @@
                             {% endif %}
                             {% endfor %}
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

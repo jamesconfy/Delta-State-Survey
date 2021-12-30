@@ -10,14 +10,14 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
-    first_name = db.Column(db.String(), nullable=False)
-    last_name = db.Column(db.String(), nullable=False)
-    full_name = db.Column(db.String(), nullable=False)
-    password = db.Column(db.String(), nullable=False)
+    first_name = db.Column(db.String(120), nullable=False)
+    last_name = db.Column(db.String(120), nullable=False)
+    full_name = db.Column(db.String(120), nullable=False)
+    password = db.Column(db.String(120), nullable=False)
     prefix = db.Column(db.String(2), nullable=False)
     phone_no = db.Column(db.String(15), unique=True, nullable= False)
-    location = db.Column(db.String())
-    image_file = db.Column(db.String(20), nullable=False, default='default.png')
+    location = db.Column(db.String(300))
+    image_file = db.Column(db.String(120), nullable=False, default='default.png')
     plans = db.relationship('Lodgement', backref='surveyor', lazy=True)
 
     def __repr__(self):
@@ -25,15 +25,15 @@ class User(db.Model, UserMixin):
 
 class Lodgement(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name_of_survey = db.Column(db.String(), nullable=False)
+    name_of_survey = db.Column(db.String(300), nullable=False)
     prefix = db.Column(db.String(2), nullable=False)
-    plan_no = db.Column(db.String(), nullable=False)
-    location = db.Column(db.String(), nullable=False)
-    purpose_of_survey = db.Column(db.String(), nullable=False)
-    date_of_survey = db.Column(db.DateTime(), default=datetime.utcnow)
+    plan_no = db.Column(db.String(120), nullable=False)
+    location = db.Column(db.String(300), nullable=False)
+    purpose_of_survey = db.Column(db.String(120), nullable=False)
+    date_of_survey = db.Column(db.DateTime(120), default=datetime.utcnow)
     area_of_land = db.Column(db.Integer, nullable=False)
-    lodegement_fee = db.Column(db.String, nullable=False)
-    plan_file = db.Column(db.String(20), nullable=False, default='default.png')
+    lodegement_fee = db.Column(db.String(120), nullable=False)
+    plan_file = db.Column(db.String(120), nullable=False, default='default.png')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
