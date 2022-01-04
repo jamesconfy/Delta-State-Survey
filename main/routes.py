@@ -8,7 +8,7 @@ main = Blueprint('main', __name__)
 @main.route("/home")
 def home():
     page = request.args.get('page', 1, type=int)
-    plans = Lodgement.query.order_by(Lodgement.date_of_survey.desc()).paginate(per_page=3, page=page)
+    plans = Lodgement.query.order_by(Lodgement.date_created.desc()).paginate(per_page=3, page=page)
     return render_template('home.html', title='Home', plans=plans, legend='Home')
 
 

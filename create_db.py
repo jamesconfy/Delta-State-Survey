@@ -15,7 +15,8 @@ cursor = mydb.cursor()
 
 #cursor.execute("CREATE DATABASE users")
 
-#cursor.execute("drop database qpusers")
+#cursor.execute("drop database users")
+#cursor.execute("SHOW databases")
 
 #for db in cursor:
 #    print(db)

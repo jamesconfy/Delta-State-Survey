@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     prefix = db.Column(db.String(2), nullable=False)
     phone_no = db.Column(db.String(15), unique=True, nullable= False)
     location = db.Column(db.String(300))
+    date_created = db.Column(db.DateTime(120), default=datetime.utcnow)
     image_file = db.Column(db.String(120), nullable=False, default='default.png')
     plans = db.relationship('Lodgement', backref='surveyor', lazy=True)
 
@@ -33,6 +34,7 @@ class Lodgement(db.Model):
     date_of_survey = db.Column(db.DateTime(120), default=datetime.utcnow)
     area_of_land = db.Column(db.Integer, nullable=False)
     lodegement_fee = db.Column(db.String(120), nullable=False)
+    date_created = db.Column(db.DateTime(120), default=datetime.utcnow)
     plan_file = db.Column(db.String(120), nullable=False, default='default.png')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
