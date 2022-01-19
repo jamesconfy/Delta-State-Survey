@@ -1,4 +1,3 @@
-from flask_login.utils import login_required, logout_user
 from app.models import db
 from flask import render_template, flash, redirect, url_for, request, Blueprint
 from app import bcrypt
@@ -36,14 +35,15 @@ def register():
         return redirect(url_for('main.home'))
 
     form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        full_name = form.first_name.data + ' ' + form.last_name.data
-        user = User(username=form.username.data, email=form.email.data, first_name=form.first_name.data, last_name=form.last_name.data, full_name=full_name, password=hashed_password, location=form.location.data, prefix=form.prefix.data, phone_no=form.phone_no.data)
-        db.session.add(user)
-        db.session.commit()
-        flash(f'Account created successfully for {form.username.data}', 'success')
-        return redirect(url_for('users.login'))
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            full_name = form.first_name.data + ' ' + form.last_name.data
+            user = User(username=form.username.data, email=form.email.data, first_name=form.first_name.data, last_name=form.last_name.data, full_name=full_name, password=hashed_password, location=form.location.data, prefix=form.prefix.data, phone_no=form.phone_no.data)
+            db.session.add(user)
+            db.session.commit()
+            flash(f'Account created successfully for {form.username.data}', 'success')
+            return redirect(url_for('users.login'))
     return render_template('register.html', title='Register', form=form)
 
 
