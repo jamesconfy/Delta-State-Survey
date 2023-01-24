@@ -1,8 +1,12 @@
-from flask import render_template, flash, redirect, url_for, request, abort, Blueprint
+from app import db
+from flask import render_template, request, Blueprint
 from app.models import Lodgement
 
 main = Blueprint('main', __name__)
 
+@main.before_app_first_request
+def create_tables():
+    db.create_all()
 
 @main.route("/")
 @main.route("/home")
