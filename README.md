@@ -39,7 +39,3 @@ You can finally run `flask run` to start the app in development mode, or `gunico
   ```
 
 After seeing this, you can then access the application on [localhost](http://localhost:5000/home)
-
-```
-
-```
