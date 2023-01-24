@@ -22,9 +22,6 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     login_manager.init_app(app)
 
-    with app.app_context():
-        db.create_all()
-
     from users.routes import users
     from main.routes import main
     from lodgement.routes import lodgement
@@ -32,5 +29,8 @@ def create_app(config_class=Config):
     app.register_blueprint(users)
     app.register_blueprint(main)
     app.register_blueprint(lodgement)
+
+    with app.app_context():
+        db.create_all()
 
     return app
